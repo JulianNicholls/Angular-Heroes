@@ -32,7 +32,8 @@ System.register(['angular2/core', './hero-detail.component', './hero.service'], 
                 HeroesComponent.prototype.onSelect = function (hero) { this.selectedHero = hero; };
                 HeroesComponent.prototype.getHeroes = function () {
                     var _this = this;
-                    this._heroService.getHeroesSlowly().then(function (heroes) { return _this.heroes = heroes; });
+                    this._heroService.getHeroesSlowly()
+                        .then(function (heroes) { return _this.heroes = heroes; });
                 };
                 HeroesComponent.prototype.ngOnInit = function () {
                     this.getHeroes();
