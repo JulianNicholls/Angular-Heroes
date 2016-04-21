@@ -11,7 +11,9 @@ export class Hero {
     <h1>{{title}}</h1>
     <h2>My Heroes</h2>
     <ul class="heroes">
-      <li *ngFor="#hero of heroes" (click)="onSelect(hero)">
+      <li *ngFor="#hero of heroes"
+          [class.selected]="hero === selectedHero"
+          (click)="onSelect(hero)">
         <span class="badge">{{hero.id}}</span> {{hero.name}}
       </li>
     </ul>
@@ -24,7 +26,7 @@ export class Hero {
         <input type="text" placeholder="name" [(ngModel)]="selectedHero.name" />
       </div>
     </div>
-  `
+  `,
   styles: [`
     .selected {
       background-color: #CFD8DC !important;
