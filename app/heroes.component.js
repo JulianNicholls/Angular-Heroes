@@ -35,7 +35,7 @@ System.register(['angular2/core', 'angular2/router', './hero-detail.component', 
                 HeroesComponent.prototype.onSelect = function (hero) { this.selectedHero = hero; };
                 HeroesComponent.prototype.getHeroes = function () {
                     var _this = this;
-                    this._heroService.getHeroesSlowly()
+                    this._heroService.getHeroes()
                         .then(function (heroes) { return _this.heroes = heroes; });
                 };
                 HeroesComponent.prototype.ngOnInit = function () {
