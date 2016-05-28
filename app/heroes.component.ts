@@ -1,15 +1,17 @@
-import {Component, OnInit}    from 'angular2/core';
-import {Router}               from 'angular2/router';
+import { Component, OnInit }    from 'angular2/core';
+import { Router }               from 'angular2/router';
+import { Http, HTTP_PROVIDERS } from 'angular2/http';
 
-import {Hero}                 from './hero';
-import {HeroDetailComponent}  from './hero-detail.component';
-import {HeroService}          from './hero.service';
+import { Hero }                 from './hero';
+import { HeroDetailComponent }  from './hero-detail.component';
+import { HeroService }          from './hero.service';
 
 @Component({
   selector:     'my-heroes',
   templateUrl:  'app/heroes.component.html',
   styleUrls:    ['app/heroes.component.css'],
-  directives:   [HeroDetailComponent]
+  directives:   [HeroDetailComponent],
+  providers:    [HTTP_PROVIDERS]
 })
 
 export class HeroesComponent implements OnInit {
@@ -17,6 +19,7 @@ export class HeroesComponent implements OnInit {
   selectedHero:   Hero;
 
   constructor(
+    public  http:         Http,
     private _router:      Router,
     private _heroService: HeroService
   ) {}
@@ -25,7 +28,7 @@ export class HeroesComponent implements OnInit {
 
   getHeroes() {
     this._heroService.getHeroes()
-      .then(heroes => this.heroes = heroes);
+      .subscribe(response => this.heroes = response.json().heros);
   }
 
   ngOnInit() {
@@ -33,6 +36,6 @@ export class HeroesComponent implements OnInit {
   }
 
   gotoDetail() {
-    this._router.navigate(['HeroDetail', {id: this.selectedHero.id}]);
+    this._router.navigate(['HeroDetail', { id: this.selectedHero.id }]);
   }
 }

@@ -22,7 +22,7 @@ export class HeroDetailComponent implements OnInit {
     let id = +this._routeParams.get('id');  // The '+' converts to a number
 
     this._heroService.getHero(id)
-      .then(hero => this.hero = hero);
+      .subscribe(response => this.hero = response.json().hero);
   }
 
   goBack() {

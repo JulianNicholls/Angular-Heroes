@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './hero-detail.component', './hero.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/http', './hero-detail.component', './hero.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './hero-detail.component', 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, hero_detail_component_1, hero_service_1;
+    var core_1, router_1, http_1, hero_detail_component_1, hero_service_1;
     var HeroesComponent;
     return {
         setters:[
@@ -20,6 +20,9 @@ System.register(['angular2/core', 'angular2/router', './hero-detail.component', 
             function (router_1_1) {
                 router_1 = router_1_1;
             },
+            function (http_1_1) {
+                http_1 = http_1_1;
+            },
             function (hero_detail_component_1_1) {
                 hero_detail_component_1 = hero_detail_component_1_1;
             },
@@ -28,7 +31,8 @@ System.register(['angular2/core', 'angular2/router', './hero-detail.component', 
             }],
         execute: function() {
             HeroesComponent = (function () {
-                function HeroesComponent(_router, _heroService) {
+                function HeroesComponent(http, _router, _heroService) {
+                    this.http = http;
                     this._router = _router;
                     this._heroService = _heroService;
                 }
@@ -36,7 +40,7 @@ System.register(['angular2/core', 'angular2/router', './hero-detail.component', 
                 HeroesComponent.prototype.getHeroes = function () {
                     var _this = this;
                     this._heroService.getHeroes()
-                        .then(function (heroes) { return _this.heroes = heroes; });
+                        .subscribe(function (response) { return _this.heroes = response.json().heros; });
                 };
                 HeroesComponent.prototype.ngOnInit = function () {
                     this.getHeroes();
@@ -49,9 +53,10 @@ System.register(['angular2/core', 'angular2/router', './hero-detail.component', 
                         selector: 'my-heroes',
                         templateUrl: 'app/heroes.component.html',
                         styleUrls: ['app/heroes.component.css'],
-                        directives: [hero_detail_component_1.HeroDetailComponent]
+                        directives: [hero_detail_component_1.HeroDetailComponent],
+                        providers: [http_1.HTTP_PROVIDERS]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, hero_service_1.HeroService])
+                    __metadata('design:paramtypes', [http_1.Http, router_1.Router, hero_service_1.HeroService])
                 ], HeroesComponent);
                 return HeroesComponent;
             }());

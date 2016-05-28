@@ -1,17 +1,18 @@
-import {Injectable} from 'angular2/core';
+import { Injectable }           from 'angular2/core';
+import { Http, HTTP_PROVIDERS } from 'angular2/http';
 
-import {Hero}       from './hero';
-import {HEROES}     from './mock-heroes';
+import { Hero }       from './hero';
+import { HEROES }     from './mock-heroes';
 
 @Injectable()
 export class HeroService {
+  constructor(public http: Http) {}
+
   getHeroes() {
-    return Promise.resolve(HEROES);
+    return this.http.get('http://localhost:3001/heros.json');
   }
 
   getHero(id: number) {
-    return Promise.resolve(HEROES)
-      .then(heroes => heroes.filter(hero => hero.id == id)[0]
-    );
+    return this.http.get('http://localhost:3001/heros/' + id + '.json');
   }
 }

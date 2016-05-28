@@ -33,7 +33,7 @@ System.register(['angular2/core', 'angular2/router', './hero.service'], function
                     var _this = this;
                     var id = +this._routeParams.get('id'); // The '+' converts to a number
                     this._heroService.getHero(id)
-                        .then(function (hero) { return _this.hero = hero; });
+                        .subscribe(function (response) { return _this.hero = response.json().hero; });
                 };
                 HeroDetailComponent.prototype.goBack = function () {
                     window.history.back();
